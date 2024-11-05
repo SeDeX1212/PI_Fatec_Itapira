@@ -1,22 +1,17 @@
-function exibirConteudo(opcao) {
-    const titulo = document.getElementById('titulo');
-    const descricao = document.getElementById('descricao');
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const inputs = document.querySelectorAll("input, button");
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("animate");
+                }
+            });
+        });
 
-    switch (opcao) {
-        case 'home':
-            titulo.innerText = 'Home';
-            descricao.innerText = 'Bem-vindo à página inicial!';
-            break;
-        case 'sobre':
-            titulo.innerText = 'Sobre';
-            descricao.innerText = 'Esta é a seção sobre nós.';
-            break;
-        case 'contato':
-            titulo.innerText = 'Contato';
-            descricao.innerText = 'Entre em contato conosco.';
-            break;
-        default:
-            titulo.innerText = 'Bem-vindo!';
-            descricao.innerText = 'Selecione uma opção do menu.';
-    }
-}
+        inputs.forEach(input => {
+            observer.observe(input);
+        });
+    });
+</script>

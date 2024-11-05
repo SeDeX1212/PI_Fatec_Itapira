@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Status</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Controle Manual de Status</h1>
+        
+        <div class="status">
+            <div id="status1" class="status-item">Aguardando Envio</div>
+            <div id="status2" class="status-item">Em Roteiro</div>
+            <div id="status3" class="status-item">Em Trânsito</div>
+            <div id="status4" class="status-item">Aprovado/Entregue</div>
+            <div id="status5" class="status-item">Rejeitado</div>
+        </div>
+
+        <div class="buttons">
+            <button onclick="alterarStatus(1)">Aguardando Envio</button>
+            <button onclick="alterarStatus(2)">Em Roteiro</button>
+            <button onclick="alterarStatus(3)">Em Trânsito</button>
+            <button onclick="alterarStatus(4)">Aprovado/Entregue</button>
+            <button onclick="alterarStatus(5)">Rejeitado</button>
+        </div>
+
+        <p><a href="formulario.html">Ir para a página de envio de formulário</a></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
