@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Enviado</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Link CDN do jsPDF -->
+</head>
+
+<body>
+
+    <link rel="stylesheet" type="text/css"
+        href="https://saopaulo.sp.gov.br/barra-govsp/css/top-padrao-govsp-v2.min.css?vs=3.0">
+    <section class="govsp-topo">
+        <div id="govsp-topbarGlobal" class="blu-e">
+            <div id="topbarGlobal">
+                <div id="topbarLink" class="govsp-black">
+                    <div class="govsp-portal">
+                        <a href="https://www.saopaulo.sp.gov.br" title="nova guia Site Governo do Estado de São Paulo"
+                            target="_blank"><img
+                                src="https://saopaulo.sp.gov.br/barra-govsp/img/logo-governo-do-estado-sp.png"
+                                alt="logomarca Governo de São Paulo" height="38" class="logo">
+                        </a>
+                    </div>
+                </div>
+                <nav class="govsp-navbar govsp-navbar-expand-lg">
+                    <a class="govsp-link digital" href="https://spmaisdigital.sp.gov.br" title="site SP + Digital">SP +
+                        Digital</a>
+
+                    <a class="govsp-social" href="https://www.flickr.com/governosp/"><img class="govsp-icon-social"
+                            src="https://saopaulo.sp.gov.br/barra-govsp/img/i-flickr.png"
+                            alt="Flickr Governo do Estado de SP" /></a>
+
+                    <a class="govsp-social" href="https://www.linkedin.com/company/governosp/"><img
+                            class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-linkedin.png"
+                            alt="Linkedin Governo do Estado de SP" /></a>
+
+                    <a class="govsp-social" href="https://www.tiktok.com/@governosp"><img class="govsp-icon-social"
+                            src="https://saopaulo.sp.gov.br/barra-govsp/img/i-tiktok.png"
+                            alt="TikTok Governo do Estado de SP" /></a>
+
+                    <a class="govsp-social" href="https://www.youtube.com/governosp/"><img class="govsp-icon-social"
+                            src="https://saopaulo.sp.gov.br/barra-govsp/img/i-youtube.png"
+                            alt="Youtube Governo do Estado de SP" /></a>
+
+                    <a class="govsp-social" href="https://www.twitter.com/governosp/"><img class="govsp-icon-social"
+                            src="https://saopaulo.sp.gov.br/barra-govsp/img/i-twitter.png"
+                            alt="Twitter Governo do Estado de SP" /></a>
+
+                    <a class="govsp-social" href="https://www.instagram.com/governosp/"><img class="govsp-icon-social"
+                            src="https://saopaulo.sp.gov.br/barra-govsp/img/i-insta.png"
+                            alt="Instagram Governo do Estado de SP" /></a>
+
+                    <a class="govsp-social" href="https://www.facebook.com/governosp/"><img class="govsp-icon-social"
+                            src="https://saopaulo.sp.gov.br/barra-govsp/img/i-facebook.png"
+                            alt="Facebook Governo do Estado de SP" /></a>
+
+                    <p class="govsp-social">/governosp</p>
+
+                    <a class="govsp-acessibilidade" title="nova guia"
+                        href="https://www.saopaulo.sp.gov.br/fale-conosco/comunicar-erros/" target="_blank"><img
+                            class="govsp-acessibilidade"
+                            src="https://saopaulo.sp.gov.br/barra-govsp/img/i-error-report.png"
+                            alt="Comunicar um erro"></a>
+                </nav>
+            </div>
+            <button class="govsp-kebab" id="govsp-kebab" aria-expanded="false"><img
+                    src="https://saopaulo.sp.gov.br/barra-govsp/img/dots-menu.png" alt="Menu"></button>
+
+            <ul class="govsp-dropdown vs3" id="govsp-dropdown" aria-hidden="true">
+                <li><a class="govsp-link digital" role="button" href="https://spmaisdigital.sp.gov.br"
+                        title="Site SP + Digital">SP + Digital</a></li>
+
+                <li><a class="govsp-social" role="button" href="https://www.flickr.com/governosp/"><img
+                            class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-flickr.png"
+                            alt="Flickr Governo do Estado de SP" /></a></li>
+
+                <li><a class="govsp-social" role="button" href="https://www.linkedin.com/company/governosp/"><img
+                            class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-linkedin.png"
+                            alt="Linkedin Governo do Estado de SP" /></a></li>
+
+                <li><a class="govsp-social" role="button" href="https://www.tiktok.com/@governosp"><img
+                            class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-tiktok.png"
+                            alt="TikTok Governo do Estado de SP" /></a></li>
+
+                <li><a class="govsp-social" role="button" href="https://www.twitter.com/governosp/"><img
+                            class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-twitter.png"
+                            alt="Twitter Governo do Estado de SP" /></a></li>
+
+                <li><a class="govsp-social" role="button" href="https://www.youtube.com/governosp/"><img
+                            class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-youtube.png"
+                            alt="Youtube Governo do Estado de SP" /></a></li>
+
+                <li><a class="govsp-social" role="button" href="https://www.instagram.com/governosp/"><img
+                            class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-insta.png"
+                            alt="Instagram Governo do Estado de SP" /></a></li>
+
+                <li><a class="govsp-social" role="button" href="https://www.facebook.com/governosp/"><img
+                            class="govsp-icon-social" src="https://saopaulo.sp.gov.br/barra-govsp/img/i-facebook.png"
+                            alt="Facebook Governo do Estado de SP" /></a></li>
+
+                <li>
+                    <p class="govsp-social">/governosp</p>
+                </li>
+            </ul>
+        </div>
+
+        <script src="https://saopaulo.sp.gov.br/barra-govsp/js/script-top-v2.js?vs=3.0"></script>
+        <noscript>
+            Seu navegador não tem suporte a JavaScript ou está desativado!</noscript>
+    </section>
+
+    <div class="logos">
+        <img src="logo_fatec_cor.png" width="13%" alt="">
+        <img src="cps.png" width="14%" alt="">
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Incrição</a></li>
+            <li><a href="#">Relatorios</a></li>
+            <li><a href="#">Status</a></li>
+        </ul>
+    </nav>
+
+    <!-- Tabela com os dados enviados -->
+    <div class="central">
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome do Professor</th>
+                    <th>Data de Envio</th>
+                    <th>Título da HAE</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="formTableBody">
+                <!-- Linhas serão adicionadas aqui dinamicamente -->
+            </tbody>
+        </table>
+
+    </div>
+    <script>
+        // Recuperar os dados do localStorage
+        const formData = JSON.parse(localStorage.getItem("formData"));
+
+        if (formData) {
+            // Adicionar os dados na tabela
+            const tableBody = document.getElementById("formTableBody");
+
+            const newRow = tableBody.insertRow();
+
+            // Adicionar células à nova linha
+            newRow.insertCell().textContent = new Date().getTime(); // Id gerado com base no timestamp
+            newRow.insertCell().textContent = formData.professor;
+            newRow.insertCell().textContent = new Date().toLocaleString(); // Data de envio
+            newRow.insertCell().textContent = formData.tipoHAE; // Título da HAE
+            newRow.insertCell().innerHTML = '<button>Download</button>'; // Botão de download
+        }
+        // Função para gerar o PDF com as informações do formulário
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Adicionar título do PDF
+            doc.text("Formulário Enviado", 20, 20);
+
+            // Adicionar os dados do formulário ao PDF
+            let yPosition = 30;
+            for (const key in formData) {
+                if (formData.hasOwnProperty(key)) {
+                    doc.text(`${key}: ${formData[key]}`, 20, yPosition);
+                    yPosition += 10; // Espaçamento entre as linhas
+                }
+            }
+
+            // Baixar o PDF
+            doc.save("formulario_enviado.pdf");
+        });
+    </script>
+
+</body>
+
+</html>
