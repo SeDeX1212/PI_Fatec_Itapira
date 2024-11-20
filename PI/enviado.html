@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário Enviado</title>
+    <title>Coordenador</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <!-- Link CDN do jsPDF -->
@@ -121,7 +121,7 @@
     <nav>
         <ul>
             <li><a href="login.html">Voltar para o Login</a></li>
-            <li><a href="#">Acompanhamento</a></li>
+            <li><a href="enviado.html">Acompanhamento</a></li>
         </ul>
     </nav>
 
@@ -133,7 +133,7 @@
                     <th>Id</th>
                     <th>Nome do Professor</th>
                     <th>Data de Envio</th>
-                    <th>Título da HAE</th>
+                    <th>Tipo de Atividade</th>
                     <th>Status</th>
                     <th>Edital</th>
                     <th>Relatorio</th>
@@ -177,7 +177,7 @@
             const statusCell = newRow.insertCell();
             const statusSelect = document.createElement("select");
             statusSelect.className = "status-select";
-            const options = ["definido", "indefinido", "parcial"];
+            const options = ["Deferido", "Indeferido", "Parcial"];
             options.forEach(option => {
                 const optionElement = document.createElement("option");
                 optionElement.value = option;
@@ -272,7 +272,7 @@
         function handleStatusChange(event) {
             const status = event.target.value;
 
-            if (status === "parcial" || status === "indefinido") {
+            if (status === "Parcial" || status === "Indeferido") {
                 openJustificationForm();
             }
         }

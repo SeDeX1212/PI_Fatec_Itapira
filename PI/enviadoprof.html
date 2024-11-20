@@ -135,7 +135,7 @@
                     <th>Id</th>
                     <th>Nome do Professor</th>
                     <th>Data de Envio</th>
-                    <th>Título da HAE</th>
+                    <th>Tipo de Atividade</th>
                     <th>Status</th>
                     <th>Relatório</th> <!-- Nova coluna Relatório -->
                     <th>Edital</th>
@@ -199,15 +199,15 @@
             const status = formData.status || "definido";  // Caso não tenha, ele assume "definido"
             switch (status) {
                 case "definido":
-                    statusText.textContent = "Status: Definido";
+                    statusText.textContent = "Deferido";
                     statusText.style.color = "green";
                     break;
                 case "indefinido":
-                    statusText.textContent = "Status: Indefinido";
+                    statusText.textContent = "Indeferido";
                     statusText.style.color = "red";
                     break;
                 case "parcial":
-                    statusText.textContent = "Status: Parcial";
+                    statusText.textContent = "Parcial";
                     statusText.style.color = "orange";
                     break;
                 default:
