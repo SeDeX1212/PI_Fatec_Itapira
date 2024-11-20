@@ -131,7 +131,7 @@ function gerarPDF() {
     doc.text("Recursos: " + recursos, 20, 140);
     doc.text("Resultado Esperado: " + resultado, 20, 150);
     doc.text("Metodologia: " + metodologia, 20, 160);
-
+    
     // Salvar o PDF
     doc.save("formulario_hae.pdf");
 }

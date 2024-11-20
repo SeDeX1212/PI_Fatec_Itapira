@@ -121,9 +121,11 @@
     <nav>
         <ul>
             <li><a href="login.html">Voltar para o Login</a></li>
-            <li><a href="#">Acompanhamento</a></li>
+            <li><a href="edital.html">Inscrição</a></li>
+            <li><a href="enviadoprof.html">Acompanhamento</a></li>
         </ul>
     </nav>
+
 
     <!-- Tabela com os dados enviados -->
     <div class="central">
@@ -135,26 +137,39 @@
                     <th>Data de Envio</th>
                     <th>Título da HAE</th>
                     <th>Status</th>
+                    <th>Relatório</th> <!-- Nova coluna Relatório -->
                     <th>Edital</th>
-                    <th>Relatorio</th>
+                    <th>Arquivo</th>
                 </tr>
-
             </thead>
             <tbody id="formTableBody">
                 <!-- Linhas serão adicionadas aqui dinamicamente -->
             </tbody>
         </table>
+        <!-- Modal de Edição do Formulário -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeEditForm()">&times;</span>
+                <h2>Editar Informações</h2>
+                <form id="editForm" class="editForm">
+                    <label for="edit-id">ID:</label>
+                    <input type="text" id="edit-id" name="id" disabled><br>
 
-        <!-- Popup de Justificativa -->
-        <div id="justificationModal" class="justification-modal">
-            <div class="justification-modal-content">
-                <span class="close" onclick="closeJustificationForm()">&times;</span>
-                <h2>Justificativa para Status </h2>
-                <textarea id="justification-text" rows="4" cols="50"
-                    placeholder="Escreva sua justificativa..."></textarea><br>
-                <button onclick="submitJustification()">Salvar Justificativa</button>
+                    <label for="edit-name">Nome do Professor:</label>
+                    <input type="text" id="edit-name" name="professor"><br>
+
+                    <label for="edit-date">Data de Envio:</label>
+                    <input type="text" id="edit-date" name="date" disabled><br>
+
+                    <label for="edit-type">Título da HAE:</label>
+                    <input type="text" id="edit-type" name="title"><br>
+
+                    <button type="submit">Salvar</button>
+                </form>
             </div>
         </div>
+    </div>
+    
     </div>
 
     <script>
@@ -173,32 +188,62 @@
             newRow.insertCell().textContent = new Date().toLocaleString(); // Data de envio
             newRow.insertCell().textContent = formData.tipoHAE; // Título da HAE
 
-            // Criar célula para Status (Novo campo)
+            // Criar célula para o Status (Somente exibição para o professor)
             const statusCell = newRow.insertCell();
-            const statusSelect = document.createElement("select");
-            statusSelect.className = "status-select";
-            const options = ["definido", "indefinido", "parcial"];
-            options.forEach(option => {
-                const optionElement = document.createElement("option");
-                optionElement.value = option;
-                optionElement.textContent = option.charAt(0).toUpperCase() + option.slice(1);
-                statusSelect.appendChild(optionElement);
-            });
+            const statusText = document.createElement("span");
+            statusText.textContent = "Status não definido"; // O status inicial
 
-            // Adicionar o evento de mudança de status
-            statusSelect.addEventListener("change", handleStatusChange);
+            // Atribuir o status conforme o coordenador (exemplo)
+            // Aqui podemos ter uma lógica mais elaborada, por enquanto estamos mostrando o status do formulário
+            // com base no que foi enviado pelo coordenador. Por exemplo, podemos simular com dados no localStorage.
+            const status = formData.status || "definido";  // Caso não tenha, ele assume "definido"
+            switch (status) {
+                case "definido":
+                    statusText.textContent = "Status: Definido";
+                    statusText.style.color = "green";
+                    break;
+                case "indefinido":
+                    statusText.textContent = "Status: Indefinido";
+                    statusText.style.color = "red";
+                    break;
+                case "parcial":
+                    statusText.textContent = "Status: Parcial";
+                    statusText.style.color = "orange";
+                    break;
+                default:
+                    statusText.textContent = "Status não definido";
+                    break;
+            }
 
-            statusCell.appendChild(statusSelect);
+            statusCell.appendChild(statusText);
 
-            // Criar célula para o primeiro botão de download
-            const downloadCell1 = newRow.insertCell();
-            const downloadButton1 = document.createElement('button');
-            downloadButton1.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#e8eaed">
-        <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/>
-    </svg>
-`;
-            downloadButton1.addEventListener('click', function () {
+            // Criar a célula para o botão de upload de arquivo
+            const uploadCell = newRow.insertCell();
+            const uploadButton = document.createElement('label');
+            uploadButton.classList.add('upload-btn');  // Adiciona a classe estilizada
+
+            // Adiciona o ícone ao botão
+            uploadButton.innerHTML = `
+                Enviar
+                <input type="file" id="file-upload-${newRow.rowIndex}" accept="application/pdf, image/*, .docx, .xlsx" onchange="updateFileName(event, ${newRow.rowIndex})">
+            `;
+
+            // Adicionar o nome do arquivo ao lado do botão
+            const fileNameDisplay = document.createElement('span');
+            fileNameDisplay.classList.add('file-name');
+            fileNameDisplay.id = `file-name-${newRow.rowIndex}`;
+            uploadCell.appendChild(uploadButton);
+            uploadCell.appendChild(fileNameDisplay);
+
+            // Criar a célula para o botão de download
+            const downloadCell = newRow.insertCell();
+            const downloadButton = document.createElement('button');
+            downloadButton.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#e8eaed">
+                    <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/>
+                </svg>
+            `;
+            downloadButton.addEventListener('click', function () {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
 
@@ -214,91 +259,59 @@
                     }
                 }
 
-                // Salvar o arquivo com o nome específico
-                doc.save("formulario_enviado_1.pdf");
+                doc.save("formulario_enviado.pdf");
             });
-            downloadCell1.appendChild(downloadButton1);
+            downloadCell.appendChild(downloadButton);
 
-            // Criar célula para o segundo botão de download
-            const downloadCell2 = newRow.insertCell();
-            const downloadButton2 = document.createElement('button');
-            downloadButton2.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" height="50px" viewBox="0 -960 960 960" width="50px" fill="#e8eaed">
-        <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/>
-    </svg>
-`;
-            downloadButton2.addEventListener('click', function () {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
+            // Criar a célula para o botão de editar
+            const editCell = newRow.insertCell();
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Editar';
 
-                // Adicionar título do PDF do Relatório Mensal
-                doc.text("Relatório Mensal", 15, 15);
-
-                // Adicionar o conteúdo do relatório mensal
-                let yPosition = 30;
-                const relatorioMensal = `
-        Relatório Mensal: Novembro de 2024
-
-        Este relatório foi gerado com base nos dados fornecidos.
-
-        **Resumo:**
-        - Total de alunos: 120
-        - Total de aulas realizadas: 15
-        - Aulas canceladas: 3
-
-        **Detalhes:**
-        As aulas decorreram conforme o planejamento,
-        com algumas interrupções devido a imprevistos climáticos.
-        A participação dos alunos foi excelente
-         e o desempenho geral foi positivo.
-
-        **Recomendações:**
-        - Melhorar a comunicação sobre os horários das aulas.
-        - Garantir que as aulas possam ser transferidas para 
-        outro dia quando houver imprevistos.
-    `;
-
-                // Adicionar o relatório no PDF
-                doc.text(relatorioMensal, 20, yPosition);
-
-                // Salvar o arquivo com o nome específico
-                doc.save("Relatorio_Mensal.pdf");
+            // Adicionar o evento de clique para o botão de editar
+            editButton.addEventListener('click', function () {
+                // A função openEditForm agora é chamada com os dados da linha
+                openEditForm(newRow.cells[0].textContent, newRow.cells[1].textContent, newRow.cells[2].textContent, newRow.cells[3].textContent);
             });
-            downloadCell2.appendChild(downloadButton2);
-
+            editCell.appendChild(editButton);
         }
 
-        // Função para tratar a mudança no status
-        function handleStatusChange(event) {
-            const status = event.target.value;
+        // Função para abrir o formulário de edição e preencher os campos com as informações
+        function openEditForm(id, professor, date, title) {
+            // Preencher os campos do formulário com as informações passadas
+            document.getElementById("edit-id").value = id;
+            document.getElementById("edit-name").value = professor;
+            document.getElementById("edit-date").value = date;
+            document.getElementById("edit-type").value = title;
 
-            if (status === "parcial" || status === "indefinido") {
-                openJustificationForm();
-            }
+            // Exibir o modal
+            document.getElementById("editModal").style.display = "block";
         }
 
-        // Função para abrir o formulário de justificativa
-        function openJustificationForm() {
-            document.getElementById("justificationModal").style.display = "block";
+        // Função para fechar o formulário de edição
+        function closeEditForm() {
+            document.getElementById("editModal").style.display = "none";
         }
 
-        // Função para fechar o formulário de justificativa
-        function closeJustificationForm() {
-            document.getElementById("justificationModal").style.display = "none";
-        }
-
-        // Função para salvar a justificativa
-        function submitJustification() {
-            const justification = document.getElementById("justification-text").value;
-            console.log("Justificativa salva:", justification);
-            closeJustificationForm();
-        }
-
+        // Fechar o modal se o usuário clicar fora do conteúdo do modal
         window.onclick = function (event) {
-            if (event.target == document.getElementById("justificationModal")) {
-                closeJustificationForm();
+            if (event.target == document.getElementById("editModal")) {
+                closeEditForm();
             }
         };
+
+        // Função para atualizar o nome do arquivo no botão
+        function updateFileName(event, rowIndex) {
+            const fileInput = event.target;
+            const fileNameDisplay = document.getElementById(`file-name-${rowIndex}`);
+            const file = fileInput.files[0];
+
+            if (file) {
+                fileNameDisplay.textContent = file.name;  // Exibe o nome do arquivo
+            } else {
+                fileNameDisplay.textContent = '';  // Caso o usuário não selecione nenhum arquivo
+            }
+        }
     </script>
 
 
