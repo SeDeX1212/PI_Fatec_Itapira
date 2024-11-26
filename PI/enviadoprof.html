@@ -196,13 +196,13 @@
             // Atribuir o status conforme o coordenador (exemplo)
             // Aqui podemos ter uma lógica mais elaborada, por enquanto estamos mostrando o status do formulário
             // com base no que foi enviado pelo coordenador. Por exemplo, podemos simular com dados no localStorage.
-            const status = formData.status || "definido";  // Caso não tenha, ele assume "definido"
+            const status = formData.status || "deferido";  // Caso não tenha, ele assume "definido"
             switch (status) {
-                case "definido":
+                case "deferido":
                     statusText.textContent = "Deferido";
                     statusText.style.color = "green";
                     break;
-                case "indefinido":
+                case "indeferido":
                     statusText.textContent = "Indeferido";
                     statusText.style.color = "red";
                     break;
